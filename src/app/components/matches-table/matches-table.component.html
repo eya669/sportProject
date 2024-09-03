@@ -1,0 +1,47 @@
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <table class="table table-striped text-center" >
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">scoreOne</th>
+                <th scope="col">ScoreTwo</th>
+                <th scope="col">TeamOne</th>
+                <th scope="col">TeamTwo</th>
+                <th scope="col">Resulat</th>
+                <th scope="col">Resulat2</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let m of matchesTab">
+                  <td>{{m._id}}</td>
+                  <td >{{m.scoreOne}}</td>
+                  <td >{{m.scoreTwo}}</td>
+                  <td  [ngStyle] ="{color : resultColor(m.scoreOne,m.scoreTwo)}">{{m.teamOne}}</td>
+                  <td  [ngStyle]=" {color :resultColor(m.scoreTwo,m.scoreOne)} ">{{m.teamTwo}}</td>
+                  <td >
+                    <span
+                     [ngStyle]="{color:resultColor(m.scoreTwo,m.scoreOne)}" 
+                     *ngIf="m.scoreOne != m.scoreTwo">{{m.teamTwo}}
+                    </span>
+                    <span style="color: blue;" *ngIf="m.scoreOne==m.scoreTwo" > 
+                      {{scoreResult(m.scoreTwo,m.scoreOne)}}
+                    </span>
+                    <span  *ngIf="m.scoreOne != m.scoreTwo" > 
+                      {{scoreResult(m.scoreTwo,m.scoreOne)}}
+                    </span>
+                  </td>
+                  <td><span [ngStyle]="{color:resultColor(m.scoreOne,m.scoreTwo)}" 
+                    *ngIf="m.scoreOne != m.scoreTwo">{{m.teamOne}}</span>
+                    {{scoreRes(m.scoreOne,m.scoreTwo,m.teamOne)}}
+                    
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-success mr-1" (click)="goToInfo(m._id)">Display</button>
+                    <button type="button" class="btn btn-danger mr-1" (click)="deleteMatch(m._id)">Delete</button>
+                    <button type="button" class="btn btn-warning mr-1" (click)="goToEdit(m._id)">Edit</button>
+                </td>
+                </tr>
+              
+            </tbody>
+          </table>
